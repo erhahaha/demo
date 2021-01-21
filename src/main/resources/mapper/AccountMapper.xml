@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.Account">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="accout" jdbcType="VARCHAR" property="accout" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="in_or_out" jdbcType="VARCHAR" property="inOrOut" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, accout, name, in_or_out, date, category, type, money, note
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.example.demo.model.Account">
+    insert into account (id, accout, name, 
+      in_or_out, date, category, 
+      type, money, note)
+    values (#{id,jdbcType=INTEGER}, #{accout,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{inOrOut,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{category,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.Account">
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accout != null">
+        accout,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="inOrOut != null">
+        in_or_out,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accout != null">
+        #{accout,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="inOrOut != null">
+        #{inOrOut,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Account">
+    update account
+    <set>
+      <if test="accout != null">
+        accout = #{accout,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="inOrOut != null">
+        in_or_out = #{inOrOut,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Account">
+    update account
+    set accout = #{accout,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      in_or_out = #{inOrOut,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      category = #{category,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPage" parameterType="com.example.demo.model.Account" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+      from account where 1=1
+        <if test="inOrOut !=null and inOrOut !=''">
+        and in_or_out= #{inOrOut}
+        </if>
+        <if test="date !=null">
+        and date= #{date}
+        </if>
+        <if test="category !=null and category !=''">
+        and category= #{category}
+        </if>
+        <if test="type!=null and type !=''">
+        and type= #{type}
+        </if>
+  </select>
+</mapper>
